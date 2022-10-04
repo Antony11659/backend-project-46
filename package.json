@@ -2,6 +2,9 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "backend-project-46",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/Antony11659/backend-project-46/issues"
   },
-  "homepage": "https://github.com/Antony11659/backend-project-46#readme"
+  "type": "module",
+  "homepage": "https://github.com/Antony11659/backend-project-46#readme",
+  "dependencies": {
+    "comander": "^0.0.1-security",
+    "commander": "^9.4.1"
+  }
 }
