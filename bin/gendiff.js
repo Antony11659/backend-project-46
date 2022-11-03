@@ -4,11 +4,6 @@ const program = new Command();
 import * as fs from 'fs';
 import path from 'path';
 import  _ from 'lodash';
-//const { Command } = require('commander');
-//const fs = require('fs');
-//const program = new Command();
-//const path = require('path');
-//const _ = require('lodash');
 
 const sortAndStringify = (array) => {
   const sortedArray = array.sort((a,b) =>a[2].toUpperCase().localeCompare(b[2].toUpperCase()));
@@ -50,11 +45,3 @@ program
 	         });
 
 program.parse();
-// end
-//const diff = (fale1, fale2) => {
- // return `${fale1} / ${fale2}`;
-//};
-
-//program
-       //.arguments('<fale1>', '<fale2>')
-       //.parse(process.argv);
