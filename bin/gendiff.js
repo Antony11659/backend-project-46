@@ -10,7 +10,7 @@ const sortAndStringify = (array) => {
 	 return `{\n${sortedArray.join(' \n')}\n}`;
 };
 
-const genDiff = (obj1, obj2) => {
+export const genDiff = (obj1, obj2) => {
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
 	 return (keys.reduce((acc, el) => {
 		  if (Object.hasOwn(obj1, el) && Object.hasOwn(obj2, el)) {
