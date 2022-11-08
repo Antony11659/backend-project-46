@@ -1,6 +1,9 @@
-  install:
+install:
 	npm ci
 
-  gendiff:
+gendiff:
 	node bin/gendiff.js
+	
+lint:
+	npx eslint .
 

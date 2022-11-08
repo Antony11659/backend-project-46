@@ -22,6 +22,11 @@
   "homepage": "https://github.com/Antony11659/backend-project-46#readme",
   "dependencies": {
     "comander": "^0.0.1-security",
-    "commander": "^9.4.1"
+    "commander": "^9.4.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0"
   }
 }
