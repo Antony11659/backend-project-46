@@ -20,8 +20,7 @@ program
   .action((path1, path2) => {
     const file1 = JSON.parse(fs.readFileSync(path.resolve(path1), 'utf8'));
     const file2 = JSON.parse(fs.readFileSync(path.resolve(path2), 'utf8'));
-    const array = genDiff(file1, file2);
-    console.log(sortAndStringify(array));
+    console.log(genDiff(file1, file2));
   });
 
 program.parse();

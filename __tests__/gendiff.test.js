@@ -1,6 +1,6 @@
-const gendiff = require('../bin/gendiff.js');
+import genDiff from '../index.js';
 
 test('gendiff', () => {
-  expect(gendiff('././file1.json', '././file2.json').toBe('././expected_file.json'));
+  expect(genDiff(('./file1.json', './file2.json').toBe('./expected.file.txt')))
 });
 
