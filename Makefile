@@ -1,9 +1,13 @@
 install:
-	npm ci
+	   npm ci
 
 gendiff:
-	node bin/gendiff.js
+	   node bin/gendiff.js
 	
 lint:
-	npx eslint .
+	   npx eslint .
+test: 
+	   npm test
+test-coverage:
+	   npx jest --coverage
 
