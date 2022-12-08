@@ -24,10 +24,11 @@
     "comander": "^0.0.1-security",
     "commander": "^9.4.1",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-jest": "^27.1.6",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint": "^8.26.0",
+    "eslint": "^8.29.0",
     "jest": "^29.3.1"
   }
 }
