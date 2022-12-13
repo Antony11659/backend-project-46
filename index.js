@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as fs from 'fs';
 import path from 'path';
+import mapping from './__fixtures__/parsers.js';
 
 const sortAndStringify = (array) => {
   const sortedArray = array.sort((a, b) => a[3].toUpperCase().localeCompare(b[3].toUpperCase()));
@@ -8,8 +9,10 @@ const sortAndStringify = (array) => {
 };
 
 const genDiff = (file1, file2) => {
-  const obj1 = JSON.parse(fs.readFileSync(path.resolve(file1), 'utf8'));
-  const obj2 = JSON.parse(fs.readFileSync(path.resolve(file2), 'utf8'));
+  const type = path.extname(file1);
+  const parser = mapping[type];
+  const obj1 = parser(fs.readFileSync(path.resolve(file1), 'utf8'));
+  const obj2 = parser(fs.readFileSync(path.resolve(file2), 'utf8'));
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
   const result = (keys.reduce((acc, el) => {
     if (Object.hasOwn(obj1, el) && Object.hasOwn(obj2, el)) {
