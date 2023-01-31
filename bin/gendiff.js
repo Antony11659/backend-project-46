@@ -5,9 +5,9 @@ import genDiff from '../index.js';
 const program = new Command();
 
 program
-  .option('-f, --format <format>', 'output format', genDiff)
-  .description('Compares two configuration files and shows a difference')
   .version('0.0.1')
+  .option('-f, --format <format>', 'output format ( default: "stylish)"', genDiff)
+  .description('Compares two configuration files and shows a difference')
   .argument('<path1>')
   .argument('<path2>')
   .action((path1, path2) => {

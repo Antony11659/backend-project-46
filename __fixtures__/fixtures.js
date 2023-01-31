@@ -71,29 +71,31 @@ export const buildAbstractSyntax = (value1, value2) => {
   return tokens;
 };
 
-export const buildASTree = (collection) => {
-  const replacer = ' ';
-  const spaceCount = 2;
+export const formatters = {
+  stylish(collection) {
+    const replacer = ' ';
+    const spaceCount = 2;
 
-  const iter = (coll, depth) => {
-    const indentSize = depth * spaceCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const bracketIndent = replacer.repeat(indentSize - spaceCount);
-    const lines = coll.map((el) => {
-      const [name, type, value, children] = [el.name, el.type, el.value, el.children];
-      if (children.length === 0) {
-        if (_.isArray(value)) {
-          return `${currentIndent}${type} ${name}: ${iter(value, depth + 2)}`;
+    const iter = (coll, depth) => {
+      const indentSize = depth * spaceCount;
+      const currentIndent = replacer.repeat(indentSize);
+      const bracketIndent = replacer.repeat(indentSize - spaceCount);
+      const lines = coll.map((el) => {
+        const [name, type, value, children] = [el.name, el.type, el.value, el.children];
+        if (children.length === 0) {
+          if (_.isArray(value)) {
+            return `${currentIndent}${type} ${name}: ${iter(value, depth + 2)}`;
+          }
+          return `${currentIndent}${type} ${name}: ${value}`;
         }
-        return `${currentIndent}${type} ${name}: ${value}`;
-      }
-      return `${currentIndent}${type} ${name}: ${iter(children, depth + 2)}`;
-    });
-    return [
-      '{',
-      ...lines,
-      `${bracketIndent}}`,
-    ].join('\n');
-  };
-  return iter(collection, 1, 1);
+        return `${currentIndent}${type} ${name}: ${iter(children, depth + 2)}`;
+      });
+      return [
+        '{',
+        ...lines,
+        `${bracketIndent}}`,
+      ].join('\n');
+    };
+    return iter(collection, 1, 1);
+  },
 };
