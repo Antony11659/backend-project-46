@@ -81,14 +81,14 @@ export const formatters = {
       const currentIndent = replacer.repeat(indentSize);
       const bracketIndent = replacer.repeat(indentSize - spaceCount);
       const lines = coll.map((el) => {
-        const [name, type, value, children] = [el.name, el.type, el.value, el.children];
+        const [name, symbol, value, children] = [el.name, el.type, el.value, el.children];
         if (children.length === 0) {
           if (_.isArray(value)) {
-            return `${currentIndent}${type} ${name}: ${iter(value, depth + 2)}`;
+            return `${currentIndent}${symbol} ${name}: ${iter(value, depth + 2)}`;
           }
-          return `${currentIndent}${type} ${name}: ${value}`;
+          return `${currentIndent}${symbol} ${name}: ${value}`;
         }
-        return `${currentIndent}${type} ${name}: ${iter(children, depth + 2)}`;
+        return `${currentIndent}${symbol} ${name}: ${iter(children, depth + 2)}`;
       });
       return [
         '{',
@@ -97,5 +97,38 @@ export const formatters = {
       ].join('\n');
     };
     return iter(collection, 1, 1);
+  },
+  plain(collection) {
+    let from;
+    const iter = (coll, prop = '', val = '', type = '') => {
+      if (coll.length === 0) {
+        const rawValue = _.isArray(val) ? '[complex value]' : val;
+        const value = typeof rawValue === 'string' ? `'${rawValue}'` : rawValue;
+        // remove first '.' from the path
+        const rootPath = prop.substring(1);
+        switch (type) {
+          case 'added':
+            return `Property '${rootPath}' 'was added with value: ${value}`;
+
+          case 'removed':
+            return `Property '${rootPath}' was removed`;
+
+          case 'oldData':
+            from = value;
+            break;
+
+          case 'updated':
+            return `Property '${rootPath}' was updated. From ${from} to ${value}`;
+          default:
+            return [];
+        }
+      }
+
+      return coll.map((el) => {
+        const root = prop.concat('.', el.name);
+        return iter(el.children, root, el.value, el.type);
+      });
+    };
+    return iter(collection).flat(Infinity).join('\n');
   },
 };
