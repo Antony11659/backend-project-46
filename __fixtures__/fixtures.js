@@ -18,6 +18,21 @@ const mapValueObject = (obj) => {
   return tokens;
 };
 
+const makeSymbol = (status) => {
+  switch (status) {
+    case 'added':
+      return '+';
+    case 'updated':
+      return '+';
+    case 'removed':
+      return '-';
+    case 'oldData':
+      return '-';
+    default:
+      return ' ';
+  }
+};
+
 const node = createToken;
 
 export const buildAbstractSyntax = (value1, value2) => {
@@ -31,13 +46,13 @@ export const buildAbstractSyntax = (value1, value2) => {
       }
 
       if (_.isObject(value1[el]) && !_.isObject(value2[el])) {
-        acc.push(node(el, mapValueObject(value1[el]), '-'));
-        acc.push(node(el, value2[el], '+'));
+        acc.push(node(el, mapValueObject(value1[el]), 'oldData'));
+        acc.push(node(el, value2[el], 'updated'));
         return acc;
       }
       if (!_.isObject(value1[el]) && _.isObject(value2[el])) {
-        acc.push(node(el, mapValueObject(value2[el]), '-'));
-        acc.push(node(el, value1[el], '+'));
+        acc.push(node(el, mapValueObject(value2[el]), 'oldData'));
+        acc.push(node(el, value1[el], 'updated'));
         return acc;
       }
       if (value1[el] === value2[el]) {
@@ -45,25 +60,25 @@ export const buildAbstractSyntax = (value1, value2) => {
         return acc;
       }
       if (value1[el] !== value2[el]) {
-        acc.push(node(el, value1[el], '-'));
-        acc.push(node(el, value2[el], '+'));
+        acc.push(node(el, value1[el], 'oldData'));
+        acc.push(node(el, value2[el], 'updated'));
         return acc;
       }
     }
     if (_.has(value1, el) && !_.has(value2, el)) {
       if (_.isObject(value1[el])) {
-        acc.push(node(el, mapValueObject(value1[el]), '-'));
+        acc.push(node(el, mapValueObject(value1[el]), 'removed'));
         return acc;
       }
-      acc.push(node(el, value1[el], '-'));
+      acc.push(node(el, value1[el], 'removed'));
       return acc;
     }
     if (!_.has(value1, el) && _.has(value2, el)) {
       if (_.isObject(value2[el])) {
-        acc.push(node(el, mapValueObject(value2[el]), '+'));
+        acc.push(node(el, mapValueObject(value2[el]), 'added'));
         return acc;
       }
-      acc.push(node(el, value2[el], '+'));
+      acc.push(node(el, value2[el], 'added'));
       return acc;
     }
     return acc;
@@ -71,7 +86,7 @@ export const buildAbstractSyntax = (value1, value2) => {
   return tokens;
 };
 
-export const formatters = {
+const formatters = {
   stylish(collection) {
     const replacer = ' ';
     const spaceCount = 2;
@@ -81,14 +96,14 @@ export const formatters = {
       const currentIndent = replacer.repeat(indentSize);
       const bracketIndent = replacer.repeat(indentSize - spaceCount);
       const lines = coll.map((el) => {
-        const [name, symbol, value, children] = [el.name, el.type, el.value, el.children];
-        if (children.length === 0) {
-          if (_.isArray(value)) {
-            return `${currentIndent}${symbol} ${name}: ${iter(value, depth + 2)}`;
+        const symbol = makeSymbol(el.type);
+        if (el.children.length === 0) {
+          if (_.isArray(el.value)) {
+            return `${currentIndent}${symbol} ${el.name}: ${iter(el.value, depth + 2)}`;
           }
-          return `${currentIndent}${symbol} ${name}: ${value}`;
+          return `${currentIndent}${symbol} ${el.name}: ${el.value}`;
         }
-        return `${currentIndent}${symbol} ${name}: ${iter(children, depth + 2)}`;
+        return `${currentIndent}${symbol} ${el.name}: ${iter(el.children, depth + 2)}`;
       });
       return [
         '{',
@@ -131,4 +146,11 @@ export const formatters = {
     };
     return iter(collection).flat(Infinity).join('\n');
   },
+};
+
+export const getFormatter = (formatter) => {
+  if (!_.has(formatters, [formatter])) {
+    throw new Error('this formatter does not exist!');
+  }
+  return formatters[formatter];
 };

@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import path from 'path';
 import mapping from './__fixtures__/parsers.js';
-import { buildAbstractSyntax, formatters } from './__fixtures__/fixtures.js';
+import { buildAbstractSyntax, getFormatter } from './__fixtures__/fixtures.js';
 
 const genDiff = (file1, file2, formatName = 'stylish') => {
-  const buildASTree = formatters[formatName];
+  const buildASTree = getFormatter(formatName);
   const type = path.extname(file1);
   const parser = mapping[type];
   const obj1 = parser(fs.readFileSync(path.resolve(file1), 'utf8'));
