@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import path from 'path';
 import mapping from './__fixtures__/parsers.js';
-import { buildAbstractSyntax, getFormatter } from './__fixtures__/fixtures.js';
+import buildAbstractSyntax from './__fixtures__/fixtures.js';
+import getFormatter from './formatters/index.js';
 
 const genDiff = (file1, file2, formatName = 'stylish') => {
   const buildASTree = getFormatter(formatName);
