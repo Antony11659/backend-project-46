@@ -6,7 +6,7 @@ const buildPlainFormat = (collection) => {
     if (coll.length === 0) {
       const rawValue = _.isArray(val) ? '[complex value]' : val;
       const value = typeof rawValue === 'string' && rawValue !== '[complex value]' ? `'${rawValue}'` : rawValue;
-      // remove first '.' from the path
+      // remove first '.' from the parentRoot
       const rootPath = prop.substring(1);
       switch (type) {
         case 'added':
