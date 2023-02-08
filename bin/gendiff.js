@@ -6,7 +6,7 @@ const program = new Command();
 
 program
   .version('0.0.1')
-  .option('-f, --format <format>', 'output format ( default: "stylish)"')
+  .option('-f, --format <format>', 'output format ( default: "stylish)"', 'stylish')
   .description('Compares two configuration files and shows a difference')
   .argument('<path1>')
   .argument('<path2>')
