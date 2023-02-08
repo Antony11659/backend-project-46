@@ -10,8 +10,12 @@ const makeSymbol = (status) => {
       return '-';
     case 'oldData':
       return '-';
-    default:
+    case 'equal':
       return ' ';
+    case ' ':
+      return ' ';
+    default:
+      throw new Error('invalid type!');
   }
 };
 

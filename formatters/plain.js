@@ -21,8 +21,16 @@ const buildPlainFormat = (collection) => {
 
         case 'updated':
           return `Property '${rootPath}' was updated. From ${from} to ${value}`;
-        default:
+
+        case 'equal':
+          // return empty array because flat() will remove it
           return [];
+
+        case ' ':
+          return [];
+
+        default:
+          throw new Error('type is invalid!');
       }
     }
 

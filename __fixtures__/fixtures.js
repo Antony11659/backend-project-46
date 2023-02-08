@@ -13,9 +13,9 @@ const mapValueObject = (obj) => {
   const keys = Object.keys(obj);
   const tokens = keys.map((el) => {
     if (!_.isObject(obj[el])) {
-      return createToken(el, obj[el], ' ');
+      return createToken(el, obj[el]);
     }
-    return createToken(el, mapValueObject(obj[el]), ' ');
+    return createToken(el, mapValueObject(obj[el]));
   });
   return tokens;
 };
@@ -26,7 +26,7 @@ const buildAbstractSyntax = (value1, value2) => {
     if (_.has(value1, el) && _.has(value2, el)) {
       if (_.isObject(value1[el]) && _.isObject(value2[el])) {
         const child = buildAbstractSyntax(value1[el], value2[el]);
-        acc.push(node(el, 'object', ' ', child));
+        acc.push(node(el, 'object', 'equal', child));
         return acc;
       }
 
@@ -41,7 +41,7 @@ const buildAbstractSyntax = (value1, value2) => {
         return acc;
       }
       if (value1[el] === value2[el]) {
-        acc.push(node(el, value1[el]));
+        acc.push(node(el, value1[el], 'equal'));
         return acc;
       }
       if (value1[el] !== value2[el]) {
