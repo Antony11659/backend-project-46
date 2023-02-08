@@ -11,6 +11,7 @@ program
   .argument('<path1>')
   .argument('<path2>')
   .action((path1, path2, options) => {
+    console.log(options);
     console.log(genDiff(path1, path2, options.format));
   });
 

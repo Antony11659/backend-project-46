@@ -36,8 +36,8 @@ const buildAbstractSyntax = (value1, value2) => {
         return acc;
       }
       if (!_.isObject(value1[el]) && _.isObject(value2[el])) {
-        acc.push(node(el, mapValueObject(value2[el]), 'oldData'));
-        acc.push(node(el, value1[el], 'updated'));
+        acc.push(node(el, value1[el], 'oldData'));
+        acc.push(node(el, mapValueObject(value2[el]), 'updated'));
         return acc;
       }
       if (value1[el] === value2[el]) {
