@@ -3,7 +3,7 @@ const buildJsonFormat = (coll) => {
     acc[el.name] = { ...el };
     return acc;
   }, {});
-  return JSON.parse(JSON.stringify(result));
+  return JSON.stringify(result);
 };
 
 export default buildJsonFormat;

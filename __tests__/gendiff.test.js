@@ -32,9 +32,9 @@ describe('genDiff_with_plain_formatter', () => {
 describe('genDiff_json_formatter', () => {
   const formatter = 'json';
   test('genDiff_json_format.json', () => {
-    expect(JSON.stringify(genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), formatter))).toBe(readFile('expected.file.json.txt'));
+    expect(genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'), formatter)).toBe(readFile('expected.file.json.txt'));
   });
   test('genDiff_json_format.yml', () => {
-    expect(JSON.stringify(genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), formatter))).toBe(readFile('expected.file.json.txt'));
+    expect(genDiff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), formatter)).toBe(readFile('expected.file.json.txt'));
   });
 });
