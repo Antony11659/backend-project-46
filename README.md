@@ -1,6 +1,6 @@
 # Description
 
-*Difference generator* is a compare tool program that determines the difference between two data structures. This is a popular task. A similar mechanism is used when outputting tests or when automatically tracking changes in configuration files.
+*Difference generator* is a compare tool program that determines the difference between two data structures. This is a popular task. A similar mechanism is used when outputting tests or when automatically tracking changes in configuration files, for example http://www.jsondiff.com.
 
 
 ## Utility Features
