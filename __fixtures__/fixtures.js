@@ -26,14 +26,14 @@ const buildAbstractSyntax = (value1, value2) => {
     if (_.has(value1, el) && _.has(value2, el)) {
       if (_.isObject(value1[el]) && _.isObject(value2[el])) {
         const child = buildAbstractSyntax(value1[el], value2[el]);
-        acc.push(node(el, 'object', 'equal', child));
-        return acc;
+        return [...acc, node(el, 'object', 'equal', child)];
       }
 
       if (_.isObject(value1[el]) && !_.isObject(value2[el])) {
-        acc.push(node(el, mapValueObject(value1[el]), 'oldData'));
-        acc.push(node(el, value2[el], 'updated'));
-        return acc;
+        // acc.push(node(el, mapValueObject(value1[el]), 'oldData'));
+        // acc.push(node(el, value2[el], 'updated'));
+        const newAcc = [...acc, node(el, mapValueObject(value1[el]), 'oldData')];
+        return [...newAcc, node(el, value2[el], 'updated')];
       }
       if (!_.isObject(value1[el]) && _.isObject(value2[el])) {
         acc.push(node(el, value1[el], 'oldData'));
