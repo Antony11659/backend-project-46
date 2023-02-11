@@ -30,41 +30,32 @@ const buildAbstractSyntax = (value1, value2) => {
       }
 
       if (_.isObject(value1[el]) && !_.isObject(value2[el])) {
-        // acc.push(node(el, mapValueObject(value1[el]), 'oldData'));
-        // acc.push(node(el, value2[el], 'updated'));
         const newAcc = [...acc, node(el, mapValueObject(value1[el]), 'oldData')];
         return [...newAcc, node(el, value2[el], 'updated')];
       }
       if (!_.isObject(value1[el]) && _.isObject(value2[el])) {
-        acc.push(node(el, value1[el], 'oldData'));
-        acc.push(node(el, mapValueObject(value2[el]), 'updated'));
-        return acc;
+        const newAcc = [...acc, node(el, value1[el], 'oldData')];
+        return [...newAcc, node(el, mapValueObject(value2[el]), 'updated')];
       }
       if (value1[el] === value2[el]) {
-        acc.push(node(el, value1[el], 'equal'));
-        return acc;
+        return [...acc, node(el, value1[el], 'equal')];
       }
       if (value1[el] !== value2[el]) {
-        acc.push(node(el, value1[el], 'oldData'));
-        acc.push(node(el, value2[el], 'updated'));
-        return acc;
+        const newAcc = [...acc, node(el, value1[el], 'oldData')];
+        return [...newAcc, node(el, value2[el], 'updated')];
       }
     }
     if (_.has(value1, el) && !_.has(value2, el)) {
       if (_.isObject(value1[el])) {
-        acc.push(node(el, mapValueObject(value1[el]), 'removed'));
-        return acc;
+        return [...acc, node(el, mapValueObject(value1[el]), 'removed')];
       }
-      acc.push(node(el, value1[el], 'removed'));
-      return acc;
+      return [...acc, node(el, value1[el], 'removed')];
     }
     if (!_.has(value1, el) && _.has(value2, el)) {
       if (_.isObject(value2[el])) {
-        acc.push(node(el, mapValueObject(value2[el]), 'added'));
-        return acc;
+        return [...acc, node(el, mapValueObject(value2[el]), 'added')];
       }
-      acc.push(node(el, value2[el], 'added'));
-      return acc;
+      return [...acc, node(el, value2[el], 'added')];
     }
     return acc;
   }, []);
