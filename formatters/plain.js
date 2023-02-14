@@ -1,11 +1,18 @@
 import _ from 'lodash';
 
+const makeValue = (value) => {
+  const rawValue = _.isArray(value) ? '[complex value]' : value;
+  if (typeof rawValue === 'string' && rawValue !== '[complex value]') {
+    return `'${rawValue}'`;
+  }
+  return rawValue;
+};
+
 const buildPlainFormat = (collection) => {
-  let from;
+  const from = [];
   const iter = (coll, prop = '', val = '', type = '') => {
     if (coll.length === 0) {
-      const rawValue = _.isArray(val) ? '[complex value]' : val;
-      const value = typeof rawValue === 'string' && rawValue !== '[complex value]' ? `'${rawValue}'` : rawValue;
+      const value = makeValue(val);
       // remove first '.' from the parentRoot
       const rootPath = prop.substring(1);
       switch (type) {
@@ -16,14 +23,14 @@ const buildPlainFormat = (collection) => {
           return `Property '${rootPath}' was removed`;
 
         case 'oldData':
-          from = value;
+          from.push(value);
           break;
 
         case 'updated':
-          return `Property '${rootPath}' was updated. From ${from} to ${value}`;
+          return `Property '${rootPath}' was updated. From ${from.shift()} to ${value}`;
 
         case 'equal':
-          // return empty array because flat() will remove it
+          //  flat() will remove []
           return [];
 
         case ' ':
