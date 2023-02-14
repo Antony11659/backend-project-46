@@ -30,19 +30,28 @@ const buildAbstractSyntax = (value1, value2) => {
       }
 
       if (_.isObject(value1[el]) && !_.isObject(value2[el])) {
+        const updatedFrom = value1[el];
+        const updatedTo = value2[el];
+        const updatedItem = { ...node(el, value2[el], 'updated'), updatedFrom, updatedTo };
         const newAcc = [...acc, node(el, mapValueObject(value1[el]), 'oldData')];
-        return [...newAcc, node(el, value2[el], 'updated')];
+        return [...newAcc, updatedItem];
       }
       if (!_.isObject(value1[el]) && _.isObject(value2[el])) {
+        const updatedFrom = value1[el];
+        const updatedTo = value2[el];
+        const updatedItem = { ...node(el, mapValueObject(value2[el]), 'updated'), updatedFrom, updatedTo };
         const newAcc = [...acc, node(el, value1[el], 'oldData')];
-        return [...newAcc, node(el, mapValueObject(value2[el]), 'updated')];
+        return [...newAcc, updatedItem];
       }
       if (value1[el] === value2[el]) {
         return [...acc, node(el, value1[el], 'equal')];
       }
       if (value1[el] !== value2[el]) {
+        const updatedFrom = value1[el];
+        const updatedTo = value2[el];
+        const updatedItem = { ...node(el, value2[el], 'updated'), updatedFrom, updatedTo };
         const newAcc = [...acc, node(el, value1[el], 'oldData')];
-        return [...newAcc, node(el, value2[el], 'updated')];
+        return [...newAcc, updatedItem];
       }
     }
     if (_.has(value1, el) && !_.has(value2, el)) {

@@ -9,7 +9,7 @@ const makeValue = (value) => {
 };
 
 const buildPlainFormat = (collection) => {
-  const from = [];
+  let from;
   const iter = (coll, prop = '', val = '', type = '') => {
     if (coll.length === 0) {
       const value = makeValue(val);
@@ -23,11 +23,11 @@ const buildPlainFormat = (collection) => {
           return `Property '${rootPath}' was removed`;
 
         case 'oldData':
-          from.push(value);
+          from = value;
           break;
 
         case 'updated':
-          return `Property '${rootPath}' was updated. From ${from.shift()} to ${value}`;
+          return `Property '${rootPath}' was updated. From ${from} to ${value}`;
 
         case 'equal':
           //  flat() will remove []
