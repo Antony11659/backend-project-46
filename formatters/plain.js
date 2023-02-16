@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const makeValue = (value) => {
-  const rawValue = _.isArray(value) ? '[complex value]' : value;
+  const rawValue = _.isArray(value) || _.isObject(value) ? '[complex value]' : value;
   if (typeof rawValue === 'string' && rawValue !== '[complex value]') {
     return `'${rawValue}'`;
   }
@@ -9,10 +9,10 @@ const makeValue = (value) => {
 };
 
 const buildPlainFormat = (collection) => {
-  let from;
-  const iter = (coll, prop = '', val = '', type = '') => {
+  const iter = (coll, prop = '', val = '', type = '', oldValue = '') => {
     if (coll.length === 0) {
       const value = makeValue(val);
+      const from = makeValue(oldValue);
       // remove first '.' from the parentRoot
       const rootPath = prop.substring(1);
       switch (type) {
@@ -23,14 +23,13 @@ const buildPlainFormat = (collection) => {
           return `Property '${rootPath}' was removed`;
 
         case 'oldData':
-          from = value;
-          break;
+          //  flat() will delete []
+          return [];
 
         case 'updated':
           return `Property '${rootPath}' was updated. From ${from} to ${value}`;
 
         case 'equal':
-          //  flat() will remove []
           return [];
 
         case ' ':
@@ -43,7 +42,7 @@ const buildPlainFormat = (collection) => {
 
     return coll.map((el) => {
       const root = prop.concat('.', el.name);
-      return iter(el.children, root, el.value, el.type);
+      return iter(el.children, root, el.value, el.type, el.updatedFrom);
     });
   };
   return iter(collection).flat(Infinity).join('\n');
