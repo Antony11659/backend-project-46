@@ -34,11 +34,22 @@ gendiff filepath1.json filepath2.json
 #format json
 gendiff -f json filepath1.json filepath2.json
 
-group1: {
-    name: 'group1',
-    type: 'equal',
-    value: 'object',
-    children: [ [Object], [Object], [Object], [Object], [Object] ]
+ {
+   "name": "root",
+     "rightBranch": [
+       {
+         'name':'common',
+         'rightBranch': [
+              ...
+         ],
+         'leftBranch': [
+              ...
+          ]
+        },
+     ],
+     "leftBranch": [
+       {'name': 'group2'}
+     ]
   }
 ``` 
   
