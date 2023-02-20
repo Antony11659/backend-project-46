@@ -1,3 +1,9 @@
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/Antony11659/backend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Antony11659/backend-project-46/actions)
+
+
+<a href="https://codeclimate.com/github/Antony11659/backend-project-46/maintainability"><img src="https://api.codeclimate.com/v1/badges/10e691ae9b8d98a87cea/maintainability" /></a>
+
 # Description
 
 *Difference generator* is a compare tool program that determines the difference between two data structures. This is a popular task. A similar mechanism is used when outputting tests or when automatically tracking changes in configuration files, for example http://www.jsondiff.com.
@@ -52,10 +58,6 @@ gendiff -f json filepath1.json filepath2.json
      ]
   }
 ``` 
-  
-
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Antony11659/backend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Antony11659/backend-project-46/actions)
+see example: https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq  
 
 
-<a href="https://codeclimate.com/github/Antony11659/backend-project-46/maintainability"><img src="https://api.codeclimate.com/v1/badges/10e691ae9b8d98a87cea/maintainability" /></a>
