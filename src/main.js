@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import path from 'path';
-import mapping from './__fixtures__/parsers.js';
-import buildAbstractSyntax from './__fixtures__/fixtures.js';
+import mapping from './parsers.js';
+import buildAbstractSyntax from './buildAbstractSyntax.js';
 import getFormatter from './formatters/index.js';
 
 const genDiff = (file1, file2, formatName = 'stylish') => {
