@@ -12,7 +12,7 @@
 - Report generation in the form of *plain text*, *stylish* and *json*.
 
 
-## Usage example  *[( see example )](https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq)*
+## Usage example  [( see example )](https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq)
 
 ```
 #format plain
@@ -55,10 +55,4 @@ gendiff -f json filepath1.json filepath2.json
        {'name': 'group2'}
      ]
   }
-``` 
-<<<<<<< HEAD
-### See example: https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq  
-
-=======
->>>>>>> ae7adfc (check #2 correct README.md mistakes, fix parsers, rename buildASTree.js)
-
+```
