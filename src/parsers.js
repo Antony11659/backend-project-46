@@ -5,4 +5,12 @@ const mapping = {
   '.yml': (file) => yaml.load(file),
   '.yaml': (file) => yaml.load(file),
 };
-export default mapping;
+
+const parse = (file) => {
+  if (!mapping[file]) {
+    throw new Error(`Unsupported file type: ${file}`);
+  }
+  return mapping[file];
+};
+
+export default parse;
