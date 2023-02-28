@@ -12,47 +12,6 @@
 - Report generation in the form of *plain text*, *stylish* and *json*.
 
 
-## Usage example  [( see example )](https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq)
+## Usage example:  
 
-```
-#format plain
-gendiff --format plain path/to/file.yml another/path/file.json
-
-Property 'common.follow' was added with value: false
-Property 'group1.baz' was updated. From 'bas' to 'bars'
-Property 'group2' was removed
-
-#format stylish (by default)
-gendiff filepath1.json filepath2.json
-
-{
-  + follow: false
-    setting1: Value 1
-  - setting2: 200
-  - setting3: true
-  + setting3: {
-        key: value
-    }
-}
-
-#format json
-gendiff -f json filepath1.json filepath2.json
-
- {
-   "name": "root",
-     "rightBranch": [
-       {
-         'name':'common',
-         'rightBranch': [
-              ...
-         ],
-         'leftBranch': [
-              ...
-          ]
-        },
-     ],
-     "leftBranch": [
-       {'name': 'group2'}
-     ]
-  }
-```
+[![See example](https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq.svg)](https://asciinema.org/a/nO47hrh9JzdDmUbEFpAjntXXq)
